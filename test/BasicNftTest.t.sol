@@ -23,7 +23,6 @@ contract BasicNftTest is Test {
         // strings can be compare easily by merely using "=="'to compare the two strings togther
         // We'll leverage abi.encodePacked to convert this to bytes, then finally we can use keccak256 to hash the value into bytes32, which we can can use in our value comparison.
         assert(keccak256(abi.encodePacked(expectedName)) == keccak256(abi.encodePacked(actualName)));
-        
     }
 
     function testUsersCanMintAndHaveBalance() public {
