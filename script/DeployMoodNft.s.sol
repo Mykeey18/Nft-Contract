@@ -12,10 +12,7 @@ contract DeployMoodNft is Script {
         string memory happySvg = vm.readFile("./img/happy.svg");
 
         vm.startBroadcast();
-        MoodNft moodNft = new MoodNft(
-            svgToImageURI(sadSvg),
-            svgToImageURI(happySvg)
-        );
+        MoodNft moodNft = new MoodNft(svgToImageURI(sadSvg), svgToImageURI(happySvg));
         vm.stopBroadcast();
         return moodNft;
     }
@@ -25,10 +22,9 @@ contract DeployMoodNft is Script {
         string memory svg
     ) public pure returns (string memory) {
         string memory baseURL = "data:image/svg+xml;base64,";
-        string memory svgBase64Encoded = Base64.encode(
-            bytes(string(string.concat(svg)))
-            //The above function is taking the svg string parameter, converting it to bytes then encoding it with the OpenZeppeling Base64.encode function, and then prepends the encoded value with our baseURL
-        );
+        string memory svgBase64Encoded = Base64.encode(bytes(string(string.concat(svg))));
+        //The above function is taking the svg string parameter, converting it to bytes then encoding it with the OpenZeppeling Base64.encode function, and then prepends the encoded value with our baseURL
+
         return string(string.concat(baseURL, svgBase64Encoded));
     }
 }
