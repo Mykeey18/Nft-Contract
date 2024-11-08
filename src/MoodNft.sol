@@ -21,7 +21,7 @@ contract MoodNft is ERC721 {
     mapping(uint256 => Mood) private s_tokenIdToMood;
 
     constructor(string memory sadSvgImageUri, string memory happySvgImageUri) ERC721("Mood Nft", "MN") {
-        s_tokenCounter = 0;
+        s_tokenCounter = 0; // Because each token is unique and possesses a unique tokenId, we absolutely need a token counter to track this in storage. We'll increment this each time a token is minted
         s_sadSvgImageUri = sadSvgImageUri;
         s_happySvgImageUri = happySvgImageUri;
     }
@@ -38,15 +38,17 @@ contract MoodNft is ERC721 {
             revert MoodNft__CantFlipMoodIfNotOwner();
         }
         if (s_tokenIdToMood[tokenId] == Mood.HAPPY) {
-            s_tokenIdToMood[tokenId] = Mood.SAD;
+            s_tokenIdToMood[tokenId] == Mood.SAD;
         } else {
-            s_tokenIdToMood[tokenId] = Mood.SAD;
+            s_tokenIdToMood[tokenId] == Mood.SAD;
         }
     }
 
     function _baseURI() internal pure override returns (string memory) {
         return "data:application/json;base64,";
     }
+
+    function moodnot() public {}
 
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
         string memory imageURI;

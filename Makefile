@@ -37,10 +37,10 @@ zk-anvil :; npx zksync-cli dev start
 deploy:
 	@forge script script/DeployBasicNft.s.sol $(NETWORK_ARGS)
 
-NETWORK_ARGS := --rpc-url $(SEPOLIA_RPC_URL) --broadcast --account myKey --sender 0x2b1A75291ee4CfA605D4EbD136e973FF61CA391F --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
+NETWORK_ARGS := --rpc-url http://127.0.0.1:8545 --private-key ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --broadcast
 
 ifeq ($(findstring --network sepolia,$(ARGS)),--network sepolia)
-	NETWORK_ARGS := --rpc-url $(SEPOLIA_RPC_URL) --account $(ACCOUNT) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
+	NETWORK_ARGS := --rpc-url http://127.0.0.1:8545 --private-key ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --broadcast
 endif
 
 deploy-sepolia:
@@ -53,7 +53,8 @@ deployMood:
 	@forge script script/DeployMoodNft.s.sol:DeployMoodNft $(NETWORK_ARGS)
 
 mintMoodNft:
-	@forge script script/Interactions.s.sol:MintMoodNft $(NETWORK_ARGS)
+	cast send 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9 "flipMoodNft(uint256)" 0 --private-key ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --rpc-url http://127.0.0.1:8545
 
 flipMoodNft:
-	@forge script script/Interactions.s.sol:FlipMoodNft $(NETWORK_ARGS)
+	cast send 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9 "flipMood(uint256)" 0 --private-key ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --
+rpc-url http://localhost:8545
